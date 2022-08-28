@@ -5,7 +5,12 @@ const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const passport = require('passport')
 const session = require('express-session')
+// const MongoStore = require('connect-mongo')(session)
+const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
+const mongoose = require('mongoose')
+
+const MONGO_URI = `mongodb+srv://mongo:${process.env.MONGOPW}@cluster0.ooihwh0.mongodb.net/storybooks?retryWrites=true&w=majority`
 
 // Load config
 dotenv.config({ path: './config/config.env' });
@@ -30,7 +35,11 @@ app.set('view engine', '.hbs');
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    // store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: MongoStore.create({
+        mongoUrl: MONGO_URI
+    })
 }))
 
 // Passport middleware
