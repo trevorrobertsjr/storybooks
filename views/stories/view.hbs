@@ -1,36 +1,24 @@
-<h3>View Story</h3>
 <div class="row">
-    <form action="/stories/{{story._id}}" method="POST" class="col s12">
-    <input type="hidden" name="_method" value="PUT">
-        <div class="row">
-            <div class="input-field">
-                <input type="text" id="title" name="title" value="{{story.title}}">
-                <label for="title">Title</label>
+    <div class="col s12 m8">
+        <h3>{{story.title}}
+            <small>{{{editIcon story.user user story._id false}}}</small>
+        </h3>
+        <div class="card story">
+            <div class="card-content">
+                <span class="card-title">{{formatDate date 'MMMM Do YYYY, h:mm:ss a'}}</span>
+                {{{story.body}}}
             </div>
         </div>
-
-        <div class="row">
-            <div class="input-field">
-                <select id="status" name="status">
-                    {{#select story.status}}
-                    <option value="public" selected>Public</option>
-                    <option value="private">Private</option>
-                    {{/select}}
-                </select>
-                <label for="status">Status</label>
+    </div>
+    <div class="col s12 m4">
+        <div class="card center-align">
+            <div class="card-content">
+                <span class="card-title">{{story.user.displayName}}</span>
+                <img src="{{story.user.image}}" class="circle responsive-img img-small">
+            </div>
+            <div class="card-action">
+                <a href="/stories/user/{{story.user._id}}">More From {{story.user.firstName}}</a>
             </div>
         </div>
-
-        <div class="row">
-            <div class="input-field">
-                <h5>Tell Us Your Story:</h5>
-                <textarea id="body" name="body">{{story.body}}</textarea>
-            </div>
-        </div>
-
-        <div class="row">
-            <input type="submit" value="Save" class="btn">
-            <a href="/dashboard" class="btn orange">Cancel</a>
-        </div>
-    </form>
+    </div>
 </div>

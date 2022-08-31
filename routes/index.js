@@ -27,6 +27,7 @@ router.get('/dashboard', ensureAuth, async (req, res) => {
             name: req.user.firstName,
             stories
         })
+        console.log(stories[0])
     } catch (err) {
         console.error(err)
         res.render('error/500')
